@@ -1,0 +1,42 @@
+@import './base.scss';
+@import './template.scss';
+h1{
+  font-size: 3.5em;
+  font-weight: 200;
+}
+h2{
+  font-weight: 400;
+}
+main {
+  background: #3b3b3b;
+  color: #fff;
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  section {
+    width: 100%;
+    min-height: 300px;
+    margin: 2.5rem 0;
+    color: #fff;
+    padding: 2.5rem;
+  }
+}
+header {
+
+}
+footer {
+  height: 50px;
+  text-align: center;
+}
+.code-block{
+  background-color: #f0f0f0;
+  color: #000;
+  border-radius: 6px;
+  pre{
+    padding: 1rem;
+  }
+}
+.logo {
+  width: 75px;
+}
