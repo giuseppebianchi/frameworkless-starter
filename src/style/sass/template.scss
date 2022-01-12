@@ -2,14 +2,41 @@ section{
   &.section-top {
     margin-top: 0;
     background: url('../../assets/imgs/painting.jpg') no-repeat center;
-    background-image: url(https://picsum.photos/1920/1280?random=1&blur=1); //https://picsum.photos
     background-size: cover;
     text-align: center;
     height: 100vh;
     display: flex;
     align-items: center;
-    div > * {
-      margin: 1rem 0;
+    div{
+      z-index: 1;
+      > * {
+        margin: 1rem 0;
+      }
     }
   }
+  .dynamic-background{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    background: url(https://picsum.photos/1920/1280?random=1&blur=1) no-repeat center; //https://picsum.photos
+    background-size: cover;
+    z-index: 0;
+  }
+}
+.highlight-text{
+  background: #ffffffdd;
+  color: red;
+  border-radius: 6px;
+  padding: 0 0.5rem;
+  margin: 0 0.5rem;
+}
+.js-text{
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: #ccc;
 }

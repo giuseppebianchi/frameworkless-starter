@@ -1,5 +1,8 @@
 $baseURL: "http://localhost:3000";
 html {
+  height: 100%;
+  box-sizing: border-box;
+  font-size: 100%;
 }
 *,*:before,*:after { box-sizing: inherit; outline: none; }
 body {
@@ -18,4 +21,7 @@ h1,h2,h3,h4,h5 {
 a {
   color: inherit;
   text-decoration: inherit;
+}
+code, kbd, pre, samp {
+  font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
 }

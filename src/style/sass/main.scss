@@ -1,15 +1,19 @@
 @import './base.scss';
 @import './template.scss';
+$lightColor: #fff;
+$darkColor: #3b3b3b;
+
 h1{
   font-size: 3.5em;
   font-weight: 200;
+  margin-top: 2.5rem;
 }
 h2{
   font-weight: 400;
 }
 main {
-  background: #3b3b3b;
-  color: #fff;
+  background: $darkColor;
+  color: $lightColor;
   .container {
     max-width: 900px;
     margin: 0 auto;
@@ -35,6 +39,25 @@ footer {
   border-radius: 6px;
   pre{
     padding: 1rem;
+  }
+}
+kbd{
+  padding: 0.2rem 0.4rem;
+  font-size: 87.5%;
+  color: #fff;
+  background-color: #212529;
+  border-radius: 0.2rem;
+}
+.light-background{
+  background: $lightColor;
+  color: #000;
+}
+a.link{
+  font-weight: 600;
+  transition: 0.5s;
+  &:hover{
+    text-decoration: underline;
+    opacity: 0.6;
   }
 }
 .logo {
