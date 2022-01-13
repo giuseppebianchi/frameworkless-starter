@@ -233,6 +233,33 @@ module.exports = {
 };
                 </code></pre>
             </div>
+            <!-- MINI CSS EXTRACT PLUGIN -->
+            <h3>Mini CSS Extract Plugin</h3>
+            <div class="code-block">
+                <pre><code>
+const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
+const path = require('path');
+
+module.exports = {
+  entry: './path/to/my/entry/file.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        use: 'babel-loader',
+      },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
+  ],
+};
+                </code></pre>
+            </div>
             <!-- DEVSERVER -->
             <h2>devServer <a href="https://webpack.js.org/configuration/dev-server/" target="_blank" class="label">Doc</a></h2>
             <p><strong>webpack-dev-server</strong> can be used to quickly develop an application.</p>
