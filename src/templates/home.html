@@ -14,7 +14,7 @@
         <div class="dynamic-background"></div>
         <div class="container">
             <h1>Frameworkless Starter</h1>
-            <h2>Webpack - Sass - Babel - ES Modules </h2>
+            <h2>Webpack - Sass - PostCSS - Babel - ES Modules</h2>
             <img class="logo" src="../assets/imgs/webpack.png" alt="loading">
         </div>
     </section>
@@ -29,55 +29,242 @@
                 <lI>PostCSS</lI>
                 <li>Babel</li>
                 <li>ES Modules</li>
-                <li>ES Lint</li>
-                <li>HTTP Server</li>
             </ul>
         </div>
     </section>
     <section class="light-background">
         <div class="container">
-            <h1>Get Ready</h1>
+            <h1>Getting Started</h1>
             <h2>Install Dependencies</h2>
             <p>Use <code>yarn</code> or <code>npm</code>.</p>
-            <div class="code-block"><pre>yarn install</pre></div>
-            <h1>Development</h1>
-            <h2>Customize your app</h2>
-            <p>It's not my business.</p>
+            <div class="code-block"><pre><code>yarn install</code></pre></div>
+            <h2>Development</h2>
+            <p>Customize your app</p>
             <div class="code-block"><pre>yarn dev</pre></div>
-            <h1>Deploy</h1>
             <h2>Create Build</h2>
             <p>Tell Webpack to do some work.</p>
             <div class="code-block"><pre>yarn build</pre></div>
-            <h2>Start Server</h2>
-            <p>Launch website on <code>http://localhost:3000</code></p>
-            <div class="code-block"><pre>yarn serve</pre></div>
             <p>Once it's time to push your site to production, deploy it on <a class="link" href="https://vercel.com/" target="_blank">Vercel.com</a>.</p>
         </div>
     </section>
-    <!-- WEBPACK -->
     <section>
+        <div class="container">
+            <h1 class="main-title">Documentation</h1>
+            <h2>⬇️ Some notes and tips to refresh my knowledge about <strong>webpack</strong>.</h2>
+        </div>
+    </section>
+    <!-- WEBPACK -->
+    <section class="webpack-color">
         <div class="container">
             <h1>Webpack</h1>
             <h2>Module Bundler</h2>
+            <p>It's a static module bundler that combines every module your project needs into one or more <strong>bundles</strong>, which are static assets to serve your content from.</p>
+            <p>It is incredibly configurable to better fit your needs.</p>
+            <!-- ENTRY -->
+            <h2>Entry <a href="https://webpack.js.org/concepts/entry-points/" target="_blank" class="label">Doc</a></h2>
+            <p>An <strong>entry</strong> point indicates which module webpack should use to begin building bundles.
+                Webpack will figure out which other modules and libraries that entry point depends on (directly and indirectly).
+                By default its value is <code>./src/index.js</code>, but you can specify a different (or multiple entry points) by setting an entry property in the webpack configuration.</p>
+            <h3>webpack.config.js</h3>
+            <h6>Single entry</h6>
+            <div class="code-block">
+                <pre><code>
+module.exports = {
+  entry: './path/to/my/entry/file.js',
+};
+                </code></pre>
+            </div>
+            <h6>Multiple Entry Points</h6>
+            <div class="code-block">
+                <pre><code>
+module.exports = {
+  entry: ['./src/file_1.js', './src/file_2.js'],
+};
+                </code></pre>
+            </div>
+            <h6>Object Syntax</h6>
+            <div class="code-block">
+                <pre><code>
+module.exports = {
+  entry: {
+    app: './src/app.js',
+    adminApp: './src/adminApp.js',
+  }
+};
+                </code></pre>
+            </div>
+            <!-- OUTPUT -->
+            <h2>Output <a href="https://webpack.js.org/concepts/output/" target="_blank">Doc</a></h2>
+            <p>The <strong>output</strong> property tells webpack where to emit the bundles it creates and how to name these files.
+            It defaults to <code>./dist/main.js</code> for the main output file and to the <code>./dist</code> folder for any other generated file.
+            You can configure this part of the process by specifying an output field in your configuration:</p>
+            <h3>webpack.config.js</h3>
+            <h6>Single entry</h6>
+            <div class="code-block">
+                <pre><code>
+const path = require('path');
+
+module.exports = {
+  entry: './path/to/my/entry/file.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'my-first-webpack.bundle.js',
+  },
+};
+                </code></pre>
+            </div>
+            <h6>Multiple Entry Points</h6>
+            <div class="code-block">
+                <pre><code>
+module.exports = {
+  entry: {
+    app: './src/app.js',
+    search: './src/search.js',
+  },
+  output: {
+    filename: '[name].js',
+    path: __dirname + '/dist',
+  },
+};
+
+// writes to disk: ./dist/app.js, ./dist/search.js
+                </code></pre>
+            </div>
+            <!-- LOADERS -->
+            <h2>Loaders <a href="https://webpack.js.org/concepts/loaders/" target="_blank" class="label">Doc</a></h2>
+            <p><strong>Loaders</strong> allow webpack to process other types of files and convert them into valid modules that can be consumed by your application and added to the dependency graph.</p>
+            <p> Loaders can transform files from a different language (like TypeScript) to JavaScript or load inline images as data URLs. Loaders even allow you to do things like import CSS files directly from your JavaScript modules!</p>
+            <p>At a high level, loaders have two properties in your webpack configuration:</p>
+            <p>- The <code>test</code> property identifies which file or files should be transformed.</p>
+            <p>- The <code>use</code> property indicates which loader should be used to do the transforming.</p>
+            <h3>Install Loaders</h3>
+            To do this, you would start by installing the loaders you need:
+            <div class="code-block">
+                <pre><code>npm install --save-dev css-loader ts-loader</code></pre>
+            </div>
+            <h3>Configuration</h3>
+            <p><code>module.rules</code> allows you to specify several loaders within your webpack configuration. This is a concise way to display loaders, and helps to maintain clean code. It also offers you a full overview of each respective loader.</p>
+            <p>Loaders are evaluated/executed from right to left (or from bottom to top).</p>
+            <div class="code-block">
+                <pre><code>
+module.exports = {
+  module: {
+    rules: [
+        { test: /\.ts$/, use: 'ts-loader' },
+        { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader']},
+    ],
+  },
+};
+                </code></pre>
+            </div>
+            <h3>Asset Modules <a href="https://webpack.js.org/guides/asset-modules/" target="_blank" class="label">Doc</a></h3>
+            <p>Asset Modules is a type of module that allows one to use asset files (fonts, icons, etc) without configuring additional loaders.</p>
+            <p>Prior to webpack 5 it was common to use:</p>
+            <p>- <code>raw-loader</code> to import a file as a string</p>
+            <p>- <code>url-loader</code> to inline a file into the bundle as a data URI</p>
+            <p>- <code>file-loader</code> to emit a file into the output directory</p>
+            <h4>Asset Modules type replaces all of these loaders by adding 4 new module types:</h4>
+
+            <p> - <strong>asset/resource</strong> emits a separate file and exports the URL. Previously achievable by using file-loader.</p>
+            <p> - <strong>asset/inline</strong> exports a data URI of the asset. Previously achievable by using url-loader.</p>
+            <p> - <strong>asset/source</strong> exports the source code of the asset. Previously achievable by using raw-loader.</p>
+            <p> - <strong>asset</strong> automatically chooses between exporting a data URI and emitting a separate file. Previously achievable by using url-loader with asset size limit.
+            <div class="code-block">
+                <pre><code>
+const path = require('path');
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
+   assetModuleFilename: 'images/[hash][ext][query]'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.png/,
+        type: 'asset/resource'
+     },
+     {
+       test: /\.html/,
+       type: 'asset/resource',
+       generator: {
+         filename: 'static/[hash][ext][query]'
+       }
+     }
+    ]
+  },
+};
+                </code></pre>
+            </div>
+            <!-- PLUGINS -->
+            <h2>Plugins <a href="https://webpack.js.org/concepts/plugins/" target="_blank" class="label">Doc</a></h2>
+            <p>They also serve the purpose of doing anything else that a loader cannot do.
+            <h3>Usage</h3>
+            <p>Since plugins can take arguments/options, you must pass a new instance to the plugins property in your webpack configuration.</p>
+            <h3>Configuration</h3>
+            <div class="code-block">
+                <pre><code>
+const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
+const path = require('path');
+
+module.exports = {
+  entry: './path/to/my/entry/file.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        use: 'babel-loader',
+      },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
+  ],
+};
+                </code></pre>
+            </div>
+            <!-- DEVSERVER -->
+            <h2>devServer <a href="https://webpack.js.org/configuration/dev-server/" target="_blank" class="label">Doc</a></h2>
+            <p><strong>webpack-dev-server</strong> can be used to quickly develop an application.</p>
+            <p>Create a script in your <code>package.json</code>:</p>
+            <div class="code-block">
+                <pre><code>webpack-dev-server --open</code></pre>
+            </div>
+    </section>
+    <!-- SASS -->
+    <section class="sass-color">
+        <div class="container">
+            <h1>Sass</h1>
+            <h2>Install</h2>
+            <h2>Configuration</h2>
             <p>Description</p>
-            <h2>Entry</h2>
-            <p>Description</p>
-            <div class="code-block"><pre>yarn add -D serve</pre></div>
-            <h2>Output</h2>
-            <p>Description</p>
-            <div class="code-block"><pre>yarn add -D serve</pre></div>
+            <div class="code-block"><pre>yarn global add serve</pre></div>
         </div>
     </section>
-    <!-- SERVE -->
-    <section>
+    <!-- POSTCSS -->
+    <section class="postcss-color">
         <div class="container">
-            <h1>Server</h1>
-            <h2>Serve</h2>
-            <p>To serve a static site, single page application or just a static file</p>
-            <div class="code-block"><pre>yarn add -D serve</pre></div>
-            <p>If you prefer, you can also install the package globally using Yarn</p>
+            <h1>PostCSS</h1>
+            <h2>Install</h2>
+            <h2>Configuration</h2>
+            <p>Description</p>
             <div class="code-block"><pre>yarn global add serve</pre></div>
-            <p>Once it's time to push your site to production, we recommend using <a href="https://vercel.com/">Vercel</a></p>
+        </div>
+    </section>
+    <!-- BABEL -->
+    <section class="babel-color">
+        <div class="container">
+            <h1>Babel</h1>
+            <h2>Install</h2>
+            <h2>Configuration</h2>
+            <p>Description</p>
+            <div class="code-block"><pre>yarn global add serve</pre></div>
         </div>
     </section>
 </main>
