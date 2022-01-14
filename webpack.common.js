@@ -14,6 +14,14 @@ module.exports = {
     module: {
         rules: [
             {
+                // Look for JavaScript files and apply the babel-loader
+                // excluding the './node_modules' directory. It uses the
+                // configuration in `.babelrc`
+                test: /\.(js)$/,
+                exclude: /node_modules/,
+                use: ['babel-loader']
+            },
+            {
                 test: /\.html$/i,
                 loader: "html-loader",
             },

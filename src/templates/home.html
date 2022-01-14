@@ -272,35 +272,106 @@ module.exports = {
     <section class="sass-color">
         <div class="container">
             <h1>Sass</h1>
+            <p>Sass is a stylesheet language that’s compiled to CSS. It allows you to use variables, nested rules, mixins, functions, and more, all with a fully CSS-compatible syntax. Sass helps keep large stylesheets well-organized and makes it easy to share design within and across projects.</p>
             <h2>Install</h2>
+            <div class="code-block"><pre><code>yarn sass-loader node-sass</code></pre></div>
             <h2>Configuration</h2>
-            <p>Description</p>
-            <div class="code-block"><pre>yarn global add serve</pre></div>
+            <div class="code-block"><pre><code>
+module.exports = merge(common, {
+    module: {
+        rules: [
+            {
+                test: /\.(sa|sc)ss$/,
+                use: [
+                    "style-loader", // 3. Inject styles into DOM
+                    "css-loader", // 2. turn CSS into CommonJS
+                    "sass-loader" // 1. turn SASS into CSS
+                ]
+            },
+        ]
+    }
+});
+            </code></pre></div>
+
         </div>
     </section>
     <!-- POSTCSS -->
     <section class="postcss-color">
         <div class="container">
             <h1>PostCSS</h1>
+            <p>PostCSS takes a CSS file and provides an API to analyze and modify its rules. This API can then be used by plugins to do a lot of useful things, e.g., to find errors automatically, or to insert vendor prefixes.</p>
             <h2>Install</h2>
+            <div class="code-block"><pre><code>yarn install -D postcss-loader postcss postcss-preset-env cssnano</code></pre></div>
             <h2>Configuration</h2>
-            <p>Description</p>
-            <div class="code-block"><pre>yarn global add serve</pre></div>
+            <h3>webpack.prod.js</h3>
+            <div class="code-block">
+                <pre><code>
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader", "postcss-loader"],
+      },
+    ],
+  },
+};
+                </code></pre>
+            </div>
+            <h3>postcss.config.js</h3>
+            <div class="code-block">
+                <pre><code>
+const postcssPresetEnv = require('postcss-preset-env');
+if (process.env.NODE_ENV === 'production') {
+  module.exports = {
+    plugins: [
+      postcssPresetEnv({
+        browsers: ['> 1%']
+      }),
+      require('cssnano')
+    ]
+  };
+  return;
+}
+module.exports = {};
+                </code></pre>
+            </div>
         </div>
     </section>
     <!-- BABEL -->
     <section class="babel-color">
         <div class="container">
             <h1>Babel</h1>
+            <p>Babel is a toolchain that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript in current and older browsers or environments. Here are the main things Babel can do for you:</p>
+            <p> - Transform syntax</p>
+            <p> - Polyfill features that are missing in your target environment (through a third-party polyfill such as core-js)</p>
+            <p>- Source code transformations (codemods)</p>
             <h2>Install</h2>
+            <div class="code-block"><pre><code>yarn add -D @babel/core babel-loader @babel/preset-env</code></pre></div>
             <h2>Configuration</h2>
-            <p>Description</p>
-            <div class="code-block"><pre>yarn global add serve</pre></div>
+            <h3>.babelrc</h3>
+            <div class="code-block">
+                <pre><code>
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": ["> 1%"]
+        }
+      }
+    ]
+  ]
+}
+                </code></pre>
+            </div>
         </div>
     </section>
 </main>
 <footer>
 <p><a href="https://github.com/giuseppebianchi" target="_blank">Giuseppe Bianchi</a></p>
+    <p>Static Photo by <a href="https://unsplash.com/@steve_j?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Steve Johnson</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
 </footer>
 <!-- Webpack adds this script <script src="bundle.js"></script> -->
 </body></html>
